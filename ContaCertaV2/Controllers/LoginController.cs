@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using ServicesContracts;
 using ServicesContracts.DTO;
 
 namespace ContaCertaV2.Controllers;
 
 public class LoginController : Controller
 {
-    private readonly LoginService _loginService;
+    private readonly ILoginService _loginService;
     
-    public LoginController()
+    public LoginController(ILoginService loginService)
     {
-        _loginService = new LoginService();
+        _loginService = loginService;
     }
     
     [Route("/")]

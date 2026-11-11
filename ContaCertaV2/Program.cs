@@ -1,12 +1,21 @@
+using Entities;
+using Microsoft.EntityFrameworkCore;
 using Services;
 using ServicesContracts;
+using MySql.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
-var app = builder.Build();
 
 //adição de serviços
 builder.Services.AddScoped<ILoginService, LoginService>();
+
+builder.Services.AddDbContext<ContaCertaDbContext>(options =>
+{
+    options.UseMySQL(builder.Configuration.GetConnectionString("ContaCertaDb")!);
+});
+
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
