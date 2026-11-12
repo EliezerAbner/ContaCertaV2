@@ -10,12 +10,11 @@ namespace Services;
 
 public class EmailService : IEmailService
 {
-    private readonly string _enderecoSMTP;
-    private readonly int _port;
+    private readonly ConfigEmail _configEmail;
 
     public EmailService()
     {
-        CarregarConfigEmail();
+        _configEmail = CarregarConfigEmail();
     }
     
     public async Task<bool> EnviarEmail(string remetente, string destinatario, string assunto, string mensagem)
@@ -31,11 +30,9 @@ public class EmailService : IEmailService
 
         try
         {
-            SendResult resultado;
-            
             using (var cliente = new SmtpClient())
             {
-                await cliente.ConnectAsync(_enderecoSMTP, _port, SecureSocketOptions.StartTls);
+                await cliente.ConnectAsync(_configEmail.EnderecoSmtp!, _configEmail.PortaSmtp, SecureSocketOptions.StartTls);
 
                 await cliente.SendAsync(email);
                 await cliente.DisconnectAsync(true);
@@ -49,17 +46,14 @@ public class EmailService : IEmailService
         return true;
     }
     
-    private void CarregarConfigEmail()
+    private ConfigEmail CarregarConfigEmail()
     {
-        try
-        {
-            string json = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Configuracao", "configEmail.json"));
-            ConfigEmail? config = JsonConvert.DeserializeObject<ConfigEmail>(json);
-        }
-        catch(Exception ex)
-        {
-            string msg = "Erro ao carregar o json de configuração: " + ex.Message;
-            //tratar erros :/
-        }
+        string json = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Configuracao", "configEmail.json"));
+        ConfigEmail? config = JsonConvert.DeserializeObject<ConfigEmail>(json);
+        
+        if (config == null)
+            throw new Exception("Erro ao carregar o json de configuração");
+        
+        return config;
     }
 }
