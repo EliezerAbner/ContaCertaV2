@@ -1,5 +1,5 @@
 ﻿using ServicesContracts.Results;
-using ServicesContracts.DTO; 
+using ServicesContracts.DTO.Usuario; 
 
 namespace ServicesContracts;
 

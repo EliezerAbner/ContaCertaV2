@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using ServicesContracts;
-using ServicesContracts.DTO;
+using ServicesContracts.DTO.Usuario;
 using ServicesContracts.Results;
 
 namespace ContaCertaV2.Controllers;

@@ -5,6 +5,7 @@ namespace Entities;
 public class ContaCertaDbContext : DbContext
 {
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Movimentacao> Movimentacoes { get; set; }
     
     public ContaCertaDbContext(DbContextOptions options) : base (options)
     {}
@@ -14,5 +15,6 @@ public class ContaCertaDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.Entity<Usuario>().ToTable("Usuarios");
+        modelBuilder.Entity<Movimentacao>().ToTable("Movimentacoes");
     }
 }

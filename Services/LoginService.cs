@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Services.Helpers;
 using ServicesContracts.Results;
 using ServicesContracts;
-using ServicesContracts.DTO;
+using ServicesContracts.DTO.Usuario;
 
 namespace Services;
 

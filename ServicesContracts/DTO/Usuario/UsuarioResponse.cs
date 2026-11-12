@@ -1,6 +1,6 @@
 using Entities;
 
-namespace ServicesContracts.DTO;
+namespace ServicesContracts.DTO.Usuario;
 
 public class UsuarioResponse
 {
@@ -10,7 +10,7 @@ public class UsuarioResponse
     public string? Senha { get; set; }
     public string? Salt { get; set; }
 
-    public UsuarioUpdateRequest ToUpdateRequest()
+    public UsuarioUpdateRequest ToUsuarioUpdateRequest()
     {
         return new UsuarioUpdateRequest
         {
@@ -29,7 +29,7 @@ public static class UsuarioExtensions
     /// </summary>
     /// <param name="usuario"></param>
     /// <returns></returns>
-    public static UsuarioResponse ToUsuarioResponse(this Usuario usuario)
+    public static UsuarioResponse ToUsuarioResponse(this Entities.Usuario usuario)
     {
         return new UsuarioResponse
         {

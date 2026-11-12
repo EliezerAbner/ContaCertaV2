@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Entities;
 
-namespace ServicesContracts.DTO;
+namespace ServicesContracts.DTO.Usuario;
 
 public class UsuarioAddRequest
 {
@@ -21,9 +21,9 @@ public class UsuarioAddRequest
     /// Realiza a conversão de UsuarioAddRequest para Usuario
     /// </summary>
     /// <returns></returns>
-    public Usuario ToUsuario()
+    public Entities.Usuario ToUsuario()
     {
-        return new Usuario()
+        return new Entities.Usuario()
         {
             Email = Email,
             Nome = Nome,
