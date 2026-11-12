@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <PackageReference Include="MailKit" Version="5.0.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     </ItemGroup>
 
 </Project>

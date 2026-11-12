@@ -2,8 +2,9 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using MailKit;
 using MimeKit;
+using Newtonsoft.Json;
 using ServicesContracts;
-
+using Entities;
 
 namespace Services;
 
@@ -12,10 +13,9 @@ public class EmailService : IEmailService
     private readonly string _enderecoSMTP;
     private readonly int _port;
 
-    public EmailService(string enderecoSmtp, int port)
+    public EmailService()
     {
-        _enderecoSMTP = enderecoSmtp;
-        _port = port;
+        CarregarConfigEmail();
     }
     
     public async Task<bool> EnviarEmail(string remetente, string destinatario, string assunto, string mensagem)
@@ -47,5 +47,19 @@ public class EmailService : IEmailService
         }
 
         return true;
+    }
+    
+    private void CarregarConfigEmail()
+    {
+        try
+        {
+            string json = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "Configuracao", "configEmail.json"));
+            ConfigEmail? config = JsonConvert.DeserializeObject<ConfigEmail>(json);
+        }
+        catch(Exception ex)
+        {
+            string msg = "Erro ao carregar o json de configuração: " + ex.Message;
+            //tratar erros :/
+        }
     }
 }
