@@ -8,6 +8,7 @@ public class UsuarioResponse
     public string? Nome { get; set; }
     public string? Email { get; set; }
     public string? Senha { get; set; }
+    public string? Salt { get; set; }
 
     public UsuarioUpdateRequest ToUpdateRequest()
     {
@@ -35,7 +36,8 @@ public static class UsuarioExtensions
             UsuarioId = usuario.UsuarioId,
             Nome = usuario.Nome,
             Email = usuario.Email,
-            Senha = usuario.Senha
+            Senha = usuario.Senha,
+            Salt = usuario.Salt
         };
     }
 }

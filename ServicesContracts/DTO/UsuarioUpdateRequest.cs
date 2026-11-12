@@ -16,6 +16,9 @@ public class UsuarioUpdateRequest
     
     [Required(ErrorMessage = "É necessária a senha")]
     public string? Senha { get; set; }
+    
+    [Required]
+    public string? Salt { get; set; }
 
     /// <summary>
     /// Realiza a conversão de UsuarioAddRequest para Usuario
@@ -27,7 +30,8 @@ public class UsuarioUpdateRequest
         {
             Email = Email,
             Nome = Nome,
-            Senha = Senha
+            Senha = Senha,
+            Salt = Salt
         };
     }
 }

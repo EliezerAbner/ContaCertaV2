@@ -1,9 +1,10 @@
-﻿using ServicesContracts.DTO;
+﻿using ServicesContracts.Results;
+using ServicesContracts.DTO; 
 
 namespace ServicesContracts;
 
 /// <summary>
-/// Responsável por Criar, editar e deletar contas, além de validar o login
+/// Responsável por Criar, Editar e Deletar contas, além de validar o login
 /// </summary>
 public interface ILoginService
 {
@@ -12,15 +13,15 @@ public interface ILoginService
     /// </summary>
     /// <param name="email"></param>
     /// <param name="senha"></param>
-    /// <returns></returns>
-    Task<UsuarioResponse> FazerLogin(string email, string senha);
+    /// <returns>Retorna um UsuarioResponse com o resultado (Ok se tudo estiver certo ou Falha caso haja algum erro de validação)</returns>
+    Task<Result<UsuarioResponse>> FazerLogin(string email, string senha);
 
     /// <summary>
-    /// Cria um novo usuário no BD
+    /// Valida o e-mail, criptografa a senha e cadastra o usuário no BD
     /// </summary>
     /// <param name="novoUsuario"></param>
-    /// <returns></returns>
-    Task<UsuarioResponse> NovaConta(UsuarioAddRequest novoUsuario);
+    /// <returns>Retorna um UsuarioResponse com o resultado (Ok se tudo estiver certo ou Falha caso haja algum erro de validação)</returns>
+    Task<Result<UsuarioResponse>> NovaConta(UsuarioAddRequest novoUsuario);
     
     /// <summary>
     /// Edita o usuário no BD
@@ -34,5 +35,5 @@ public interface ILoginService
     /// </summary>
     /// <param name="id"></param>
     /// <returns>Retorna um booleano confirmando (ou não) a exclusão</returns>
-    Task<bool> DeletarConta(Guid id);
+    Task<bool> DeletarConta(Guid? id);
 }

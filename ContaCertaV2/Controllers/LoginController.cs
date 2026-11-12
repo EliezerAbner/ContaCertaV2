@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 using ServicesContracts;
 using ServicesContracts.DTO;
+using ServicesContracts.Results;
 
 namespace ContaCertaV2.Controllers;
 
@@ -23,21 +24,13 @@ public class LoginController : Controller
     [Route("/login")]
     public async Task<IActionResult> FazerLogin(string email, string senha)
     {
-        UsuarioResponse? usuarioLogado = await _loginService.FazerLogin(email, senha);
-        
-        return usuarioLogado != null? RedirectToAction("Home", usuarioLogado) : RedirectToAction("Index");
+        return View();
     }
 
     [HttpPost]
     [Route("/novaConta")]
     public async Task<IActionResult> NovaConta(UsuarioAddRequest? novoUsuario)
     {
-        if (!ModelState.IsValid)
-        {
-            //a fazer: implementar o modelValidation
-        }
-        
-        UsuarioResponse usuarioCriado = await _loginService.NovaConta(novoUsuario);
-        return RedirectToAction("Home", usuarioCriado);
+        return View();
     }
 }
