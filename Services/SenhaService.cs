@@ -4,7 +4,7 @@ using ServicesContracts;
 
 namespace Services;
 
-public abstract class SenhaService : ISenhaService
+public class SenhaService : ISenhaService
 {
     public string HashSenha(string senha, string salt)
     {
