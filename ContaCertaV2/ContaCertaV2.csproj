@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\ServicesContracts\ServicesContracts.csproj" />
       <ProjectReference Include="..\Services\Services.csproj" />
     </ItemGroup>

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root
+{
+    --corPrimaria: #3C3C7D;
+    --cor2: #32324A;
+    --cor3: #C8C8E3;
+    --cor4: #B8B8FF;
+    --cor5: #8585FF;
+}

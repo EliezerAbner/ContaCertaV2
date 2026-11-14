@@ -1,1 +1,26 @@
+@{
+    Layout = null;
+}
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/colorPalete.css">
+    <link rel="stylesheet" href="/login.css">
+    
+    <title>ContaCerta</title>
+</head>
+<body>
+<main>
+    <h1>Seja bem vindo ao ContaCerta</h1>
+    <form action="~/login" method="post">
+        <input type="email" placeholder="Endereço de E-mail" name="email" id="email">
+        <input type="password" placeholder="Senha" name="senha" id="senha">
+        <button type="submit">Entrar</button>
+    </form>
+    <a href="~/novaConta">Novo por aqui? Crie uma conta!</a>
+</main>
+</body>
+</html>
