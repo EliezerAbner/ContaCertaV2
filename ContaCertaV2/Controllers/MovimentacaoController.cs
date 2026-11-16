@@ -4,7 +4,7 @@ namespace ContaCertaV2.Controllers;
 
 public class MovimentacaoController : Controller
 {
-    // GET
+    [Route("home/movimentacoes")]
     public IActionResult Index()
     {
         return View();

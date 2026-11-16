@@ -1,0 +1,29 @@
+<div class="tituloConfig">
+    <a href="/home/configuracao">
+        <svg class="retornoIcone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+        </svg>
+    </a>
+    <h1>Configurações de Conta</h1>
+</div>
+
+<form method="post" action="/home/configuracao/editarConta">
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="email" class="form-control" id="nome" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="senha" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="senha">
+    </div>
+    <div class="mb-3">
+        <label for="senhaConfirmacao" class="form-label">Confirme sua senha</label>
+        <input type="password" class="form-control" id="senhaConfirmacao">
+    </div>
+
+    <button type="submit" id="submitButton">Editar</button>
+</form>

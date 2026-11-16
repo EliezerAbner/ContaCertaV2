@@ -10,8 +10,19 @@ public class HomeController : Controller
         return View();
     }
     
-    //Tela de movimentações
-    //Tela de configurações
+    [Route("/home/enviarEmail")]
+    public IActionResult EnviarEmail()
+    {
+        //Todo
+        return View();
+    }
+    
+    [Route("/home/download")]
+    public IActionResult Download()
+    {
+        return RedirectToAction("Index");
+    }
+    
     
     [Route("/home/logout")]
     public IActionResult Sair()

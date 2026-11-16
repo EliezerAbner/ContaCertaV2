@@ -1,3 +1,1 @@
-{
-  "DefaultConnection": "server={localização do servidor};database={nome DB};user={};password={}"
-}
+"server={localização do servidor};database={nome DB};user={};password={}"

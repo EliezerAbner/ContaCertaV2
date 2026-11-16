@@ -25,7 +25,7 @@ header
     justify-content: space-between;
 }
 
-h2 /*substituir pela logo depois*/
+#logo /*substituir pela logo depois*/
 {
     color: white;
     font-weight: lighter;
@@ -53,6 +53,7 @@ main
 {
     background-color: var(--corPrimaria);
     
+    position: fixed;
     width: 55px;
     height: calc(100vh - 40px);
     display: flex;
@@ -90,6 +91,6 @@ main
 
 article
 {
-    margin-left: 20px;
-    margin-top: 20px;    
+    margin-left: 70px;
+    margin-top: 20px;
 }

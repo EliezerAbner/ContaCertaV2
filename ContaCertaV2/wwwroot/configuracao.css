@@ -1,0 +1,88 @@
+.configContainer
+{
+    margin: 20px;
+    padding: 10px;
+}
+
+.configContainer p
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.config
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+    background-color: var(--cor3);
+    
+    padding: 17px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.config:hover
+{
+    background-color: var(--cor4);
+}
+
+.config p
+{
+    font-size: 1.1em;
+}
+
+.configIcons
+{
+    width: 30px;
+}
+
+.tituloConfig
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#btnExcluirConta
+{
+    cursor:pointer;
+}
+
+.tituloConfig h1
+{
+    margin-left: 10px;
+}
+
+.retornoIcone
+{
+    width: 35px;
+}
+
+form
+{
+    margin-left: 40px;
+}
+
+#submitButton
+{
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    background-color: var(--corPrimaria);
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+}
+
+#submitButton:hover
+{
+    background-color: var(--cor2);
+}
