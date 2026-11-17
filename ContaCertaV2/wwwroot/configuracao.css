@@ -19,6 +19,7 @@
     
     background-color: var(--cor3);
     
+    width: 400px;
     padding: 17px;
     border-radius: 20px;
     margin-top: 10px;
@@ -85,4 +86,9 @@ form
 #submitButton:hover
 {
     background-color: var(--cor2);
+}
+
+#formConfigConta
+{
+    width: 400px;
 }

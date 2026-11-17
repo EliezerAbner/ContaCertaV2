@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServicesContracts;
 using ServicesContracts.DTO.Usuario;
+using ServicesContracts.Results;
 
 namespace ContaCertaV2.Controllers;
 
@@ -16,20 +17,43 @@ public class ConfiguracaoController : Controller
     [Route("/home/configuracao")]
     public IActionResult Index()
     {
+        string? usuarioId = HttpContext.Session.GetString("Id");
+        
+        if(string.IsNullOrEmpty(usuarioId))
+            return RedirectToAction("Index", "Login");
+        
         return View();
     }
     
     [Route("/home/configuracao/conta")]
-    public IActionResult ConfiguracaoConta()
+    public async Task<IActionResult> ConfiguracaoConta()
     {
-        return View();
+        string? usuarioId = HttpContext.Session.GetString("Id");
+        
+        if(string.IsNullOrEmpty(usuarioId))
+            return RedirectToAction("Index", "Login");
+        
+        Result<UsuarioResponse> resultado = await _usuarioService.BuscarUsuario(new Guid(usuarioId));
+        
+        if (!resultado.Sucesso)
+            return RedirectToAction("Index", "Login");
+        
+        UsuarioResponse? usuarioEncontrado = resultado.Objeto;
+        
+        return View(usuarioEncontrado);
     }
     
     [Route("/home/configuracao/editarConta")]
     public async Task<IActionResult> ConfiguracaoConta(string nome, string email, string senha)
     {
+        string? usuarioId = HttpContext.Session.GetString("Id");
+        
+        if(string.IsNullOrEmpty(usuarioId))
+            return RedirectToAction("Index", "Login");
+        
         UsuarioUpdateRequest editarUsuario = new UsuarioUpdateRequest
         {
+            UsuarioId = new Guid(usuarioId!),
             Nome = nome,
             Email = email,
             Senha = senha,
@@ -44,6 +68,11 @@ public class ConfiguracaoController : Controller
     [HttpPost]
     public IActionResult ExcluirConta(string? id)
     {
+        string? usuarioId = HttpContext.Session.GetString("Id");
+        
+        if(string.IsNullOrEmpty(usuarioId))
+            return RedirectToAction("Index", "Login");
+        
         if(id == null)
             return RedirectToAction("Index");
         
@@ -51,8 +80,4 @@ public class ConfiguracaoController : Controller
         
         return RedirectToAction("Index", "Login");
     }
-    
-    //alterar conta
-    //excluir conta
-    //configuração de e-mail
 }

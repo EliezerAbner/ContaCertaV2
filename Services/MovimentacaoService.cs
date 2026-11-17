@@ -80,6 +80,22 @@ public class MovimentacaoService : IMovimentacaoService
             .ToList();
     }
 
+    public async Task<List<MovimentacaoResponse>> ListarMovimentacoesPorTipo(Guid? usuarioId, string? tipoMovto)
+    {
+        if (usuarioId == null)
+            throw new ArgumentNullException(nameof(usuarioId));
+        
+        if (tipoMovto == null)
+            throw new ArgumentNullException(nameof(tipoMovto));
+        
+        List<Movimentacao> movimentacoesEncontradas =
+            await _db.Movimentacoes.Where(temp => temp.UsuarioId == usuarioId && temp.TipoMovto == tipoMovto).ToListAsync();
+        
+        return movimentacoesEncontradas
+            .Select(temp => temp.ToMovimentacaoResponse())
+            .ToList();
+    }
+
     public async Task<MovimentacaoResponse?> BuscaMovimentacao(Guid? movimentacaoId)
     {
         if(movimentacaoId == null)

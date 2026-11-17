@@ -38,6 +38,20 @@ public class LoginService : ILoginService
         }
     }
 
+    public async Task<Result<UsuarioResponse>> BuscarUsuario(Guid? usuarioId)
+    {
+        if(usuarioId == null)
+            throw new ArgumentNullException(nameof(usuarioId));
+        
+        Usuario?  usuarioEncontrado = 
+            await _db.Usuarios.FirstOrDefaultAsync(temp => temp.UsuarioId == usuarioId);
+
+        if (usuarioEncontrado == null)
+            return Result<UsuarioResponse>.Falha("Usuário não encontrado");
+        
+        return Result<UsuarioResponse>.Ok(usuarioEncontrado.ToUsuarioResponse());
+    }
+
     public async Task<Result<UsuarioResponse>> NovaConta(UsuarioAddRequest? novoUsuario)
     {
         if (novoUsuario == null)
@@ -47,7 +61,7 @@ public class LoginService : ILoginService
         
         Usuario? emailRegistrado = await _db.Usuarios.FirstOrDefaultAsync(temp => temp.Email == novoUsuario.Email);
         
-        if (emailRegistrado == null)
+        if (emailRegistrado != null)
             return Result<UsuarioResponse>.Falha("E-mail já registrado");
         
         Usuario usuario = novoUsuario.ToUsuario();

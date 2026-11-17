@@ -15,6 +15,13 @@ public interface ILoginService
     /// <param name="senha"></param>
     /// <returns>Retorna um UsuarioResponse com o resultado (Ok se tudo estiver certo ou Falha caso haja algum erro de validação)</returns>
     Task<Result<UsuarioResponse>> FazerLogin(string email, string senha);
+    
+    /// <summary>
+    /// Busca o usuário no BD
+    /// </summary>
+    /// <param name="usuarioId"></param>
+    /// <returns>Retorna um UsuarioResponse com o usuário localizado</returns>
+    Task<Result<UsuarioResponse>> BuscarUsuario(Guid? usuarioId);
 
     /// <summary>
     /// Valida o e-mail, criptografa a senha e cadastra o usuário no BD

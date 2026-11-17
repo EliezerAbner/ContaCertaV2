@@ -24,6 +24,8 @@ builder.Services.AddDbContext<ContaCertaDbContext>(options =>
     options.UseMySQL(stringConexao);
 });
 
+builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(10);
@@ -40,5 +42,6 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 app.UseStaticFiles();
+app.UseSession();
 app.UseRouting();
 app.Run();

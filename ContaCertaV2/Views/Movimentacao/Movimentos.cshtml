@@ -1,0 +1,123 @@
+@model IEnumerable<ServicesContracts.DTO.Movimentacao.MovimentacaoResponse>?
+@{
+    ViewBag.Title = "Movimentações";
+    List<string> tiposMovtos = Enum.GetNames(typeof(TipoMovimentacao)).ToList();
+}
+
+<div class="tituloConfig">
+    <a href="/home/movimentacoes">
+        <svg class="retornoIcone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+        </svg>
+    </a>
+    <h1>@ViewBag.TipoMovto</h1>
+</div>
+
+<div class="novoMovto">
+    <h2>Adicionar movimento</h2>
+    
+    <form action="/home/movimentacoes/novoMovto" method="post" class="row g-3">
+        <div class="col-md-5">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" name="nome" id="nome">
+        </div>
+        <div class="col-md-4">
+            <label for="dataMovto" class="form-label">Data da movimentação</label>
+            <input type="date" class="form-control" name="dataMovto" id="dataMovto">
+        </div>
+        <div class="col-md-3">
+            <label for="valor" class="form-label">Valor</label>
+            <input type="number" step="0.01" class="form-control" name="valor" id="valor" placeholder="20,99">
+        </div>
+        
+        @if (ViewBag.TipoMovto == "Movimentação Geral")
+        {
+            <div class="col-8">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Dê uma breve descrição do movimento">
+            </div>
+            <div class="col-md-4">
+                <label for="tipoMovto" class="form-label">Tipo de Movimentação</label>
+                <select name="tipoMovto" id="tipoMovto" class="form-select">
+                    @foreach(string movto in tiposMovtos)
+                    {
+                        <option>@movto</option>
+                    }
+                </select>
+            </div>
+        }
+        else
+        {
+            <div class="col-12">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Dê uma breve descrição do movimento">
+            </div>
+            <div class="col-md-4" style="display:none">
+                <label for="tipoMovto" class="form-label">Tipo de Movimentação</label>
+                <select id="tipoMovto" name="tipoMovto" class="form-select">
+                    @if (ViewBag.TipoMovto == "Movimentos de Entrada")
+                    {
+                        <option selected> Entrada </option>
+                    }
+                    else
+                    {
+                        <option selected> Saida </option>
+                    }
+                    
+                    @{ Console.WriteLine(ViewBag.TipoMovto); }
+                </select>
+            </div>
+        }
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+        </div>
+    </form>
+</div>
+
+
+@if (Model.Count() == 0)
+{
+    <h2 id="mostraTabela">Sem movimentação</h2>
+}
+else
+{
+    <div id="tabela" class="border rounded-3 overflow-auto">
+        <table class="table table-hover table-striped mb-0">
+            <thead>
+            <tr>
+                <th scope="col">Data da Movimentação</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Ações</th>
+            </tr>
+            </thead>
+
+            @foreach (MovimentacaoResponse movto in Model)
+            {
+                <tbody>
+                <tr>
+                    <td>@movto.DataMovto.ToString("dd/MM/yyyy")</td>
+                    <td>@movto.Nome</td>
+                    <td>@movto.Descricao</td>
+                    <td>@movto.Valor</td>
+                    <td id="acoesContainer">
+                        <a href="/home/movimentacoes/editarMovto/@movto.Id">
+                            <svg class="acoesIcons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                        </a>
+                        <a href="/home/movimentacoes/removerMovto/@movto.Id">
+                            <svg class="acoesIcons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+}

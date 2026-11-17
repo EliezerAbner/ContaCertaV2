@@ -5,6 +5,7 @@ namespace ServicesContracts.DTO.Usuario;
 
 public class UsuarioUpdateRequest
 {
+    [Required]
     public Guid? UsuarioId { get; set; }
     
     [Required(ErrorMessage = "É necessário um nome")]

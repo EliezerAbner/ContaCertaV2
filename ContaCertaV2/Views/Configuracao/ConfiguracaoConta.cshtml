@@ -1,3 +1,5 @@
+@model UsuarioResponse
+
 <div class="tituloConfig">
     <a href="/home/configuracao">
         <svg class="retornoIcone" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -7,21 +9,21 @@
     <h1>Configurações de Conta</h1>
 </div>
 
-<form method="post" action="/home/configuracao/editarConta">
+<form id="formConfigConta" method="post" action="/home/configuracao/editarConta">
     <div class="mb-3">
-        <label for="nome" class="form-label">Nome</label>
-        <input type="email" class="form-control" id="nome" aria-describedby="emailHelp">
+        <label asp-for="Nome" class="form-label">Nome</label>
+        <input asp-for="Nome" type="email" class="form-control" id="nome" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+        <label asp-for="Email" for="email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="senha">
+        <label asp-for="Senha" class="form-label">Senha</label>
+        <input asp-for="Senha" type="password" class="form-control" id="senha">
     </div>
     <div class="mb-3">
-        <label for="senhaConfirmacao" class="form-label">Confirme sua senha</label>
+        <label class="form-label">Confirme sua senha</label>
         <input type="password" class="form-control" id="senhaConfirmacao">
     </div>
 

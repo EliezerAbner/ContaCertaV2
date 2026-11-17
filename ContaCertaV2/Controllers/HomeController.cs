@@ -7,6 +7,11 @@ public class HomeController : Controller
     [Route("/home")]
     public IActionResult Index()
     {
+        string? usuarioId = HttpContext.Session.GetString("Id");
+        
+        if(string.IsNullOrEmpty(usuarioId))
+            return RedirectToAction("Index", "Login");
+        
         return View();
     }
     

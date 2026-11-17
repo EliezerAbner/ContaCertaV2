@@ -29,14 +29,16 @@ public class LoginController : Controller
     public async Task<IActionResult> FazerLogin(string email, string senha)
     {
         Result<UsuarioResponse>? resultado = await _loginService.FazerLogin(email, senha);
-        
+
         if (!resultado.Sucesso)
+        {
+            TempData["Erro"] = resultado.Erro;
             return RedirectToAction("Index");
-            //a fazer: mostrar o erro
-            
+        }
+        
         UsuarioResponse usuarioResponse = resultado.Objeto!;
         HttpContext.Session.SetString("Id", usuarioResponse.UsuarioId.ToString()!);
-        return RedirectToAction("Home", "Index");
+        return RedirectToAction("Index", "Home");
     }
     
     [HttpGet]
@@ -61,12 +63,12 @@ public class LoginController : Controller
         
         if (!resultado.Sucesso)
         {
+            TempData["Erro"] = resultado.Erro;
             return RedirectToAction("Index");
-            //a fazer: deverá ser mostrado o erro no front
         }
         
         UsuarioResponse usuarioResponse = resultado.Objeto!;
         HttpContext.Session.SetString("Id", usuarioResponse.UsuarioId.ToString()!);
-        return RedirectToAction("Home", "Index");
+        return RedirectToAction("Index", "Home");
     }
 }
