@@ -17,6 +17,11 @@ public class LoginController : Controller
     [Route("/")]
     public IActionResult Index()
     {
+        string? id = HttpContext.Session.GetString("Id");
+
+        if (id != null)
+            return RedirectToAction("Index", "Home");
+        
         return View();
     }
     

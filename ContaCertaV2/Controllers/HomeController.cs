@@ -18,22 +18,13 @@ public class HomeController : Controller
     [Route("/home/enviarEmail")]
     public IActionResult EnviarEmail()
     {
-        //Todo
         return View();
     }
-    
-    [Route("/home/download")]
-    public IActionResult Download()
-    {
-        return RedirectToAction("Index");
-    }
-    
     
     [Route("/home/logout")]
     public IActionResult Sair()
     {
-        //a fazer: remover sessão
-        
+        HttpContext.Session.Clear();
         return RedirectToAction("Index", "Login");
     }
 }

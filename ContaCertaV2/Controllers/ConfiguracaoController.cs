@@ -18,9 +18,12 @@ public class ConfiguracaoController : Controller
     public IActionResult Index()
     {
         string? usuarioId = HttpContext.Session.GetString("Id");
-        
-        if(string.IsNullOrEmpty(usuarioId))
+
+        if (string.IsNullOrEmpty(usuarioId))
+        {
+            TempData["Erro"] = "Seção encerrada. Faça login novamente";
             return RedirectToAction("Index", "Login");
+        }
         
         return View();
     }
@@ -29,9 +32,12 @@ public class ConfiguracaoController : Controller
     public async Task<IActionResult> ConfiguracaoConta()
     {
         string? usuarioId = HttpContext.Session.GetString("Id");
-        
-        if(string.IsNullOrEmpty(usuarioId))
+
+        if (string.IsNullOrEmpty(usuarioId))
+        {
+            TempData["Erro"] = "Seção encerrada. Faça login novamente";
             return RedirectToAction("Index", "Login");
+        }
         
         Result<UsuarioResponse> resultado = await _usuarioService.BuscarUsuario(new Guid(usuarioId));
         
@@ -47,9 +53,12 @@ public class ConfiguracaoController : Controller
     public async Task<IActionResult> ConfiguracaoConta(string nome, string email, string senha)
     {
         string? usuarioId = HttpContext.Session.GetString("Id");
-        
-        if(string.IsNullOrEmpty(usuarioId))
+
+        if (string.IsNullOrEmpty(usuarioId))
+        {
+            TempData["Erro"] = "Seção encerrada. Faça login novamente";
             return RedirectToAction("Index", "Login");
+        }
         
         UsuarioUpdateRequest editarUsuario = new UsuarioUpdateRequest
         {
@@ -69,9 +78,12 @@ public class ConfiguracaoController : Controller
     public IActionResult ExcluirConta(string? id)
     {
         string? usuarioId = HttpContext.Session.GetString("Id");
-        
-        if(string.IsNullOrEmpty(usuarioId))
+
+        if (string.IsNullOrEmpty(usuarioId))
+        {
+            TempData["Erro"] = "Seção encerrada. Faça login novamente";
             return RedirectToAction("Index", "Login");
+        }
         
         if(id == null)
             return RedirectToAction("Index");

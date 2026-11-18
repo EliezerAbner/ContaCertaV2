@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Services;
 using ServicesContracts;
 using Newtonsoft.Json;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -44,4 +45,5 @@ app.MapControllers();
 app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
+app.UseRotativa();
 app.Run();
