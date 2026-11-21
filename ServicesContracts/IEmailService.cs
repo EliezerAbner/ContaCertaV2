@@ -5,7 +5,7 @@ namespace ServicesContracts;
 public interface IEmailService
 {
     /// <summary>
-    /// Responsável por enviar o e-mail contendo uma mensagem e o arquivo XLMS gerado
+    /// Responsável por enviar o e-mail contendo uma mensagem e o arquivo XLSX gerado
     /// </summary>
     /// <param name="remetente"></param>
     /// <param name="destinatario"></param>

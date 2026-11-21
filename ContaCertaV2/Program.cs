@@ -13,6 +13,7 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IMovimentacaoService, MovimentacaoService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ISenhaService, SenhaService>();
+builder.Services.AddScoped<IExcelService, ExcelService>();
 
 builder.Services.AddDbContext<ContaCertaDbContext>(options =>
 {

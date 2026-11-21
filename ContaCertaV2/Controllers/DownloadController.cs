@@ -4,16 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 using Rotativa.AspNetCore;
 using ServicesContracts;
 using ServicesContracts.DTO.Movimentacao;
+using ServicesContracts.Results;
 
 namespace ContaCertaV2.Controllers;
 
 public class DownloadController : Controller
 {
     private readonly IMovimentacaoService _movimentacaoService;
+    private readonly IExcelService _excelService;
+    private readonly IEmailService _emailService;
 
-    public DownloadController(IMovimentacaoService movimentacaoService)
+    public DownloadController(IMovimentacaoService movimentacaoService,  IExcelService excelService, IEmailService emailService)
     {
         _movimentacaoService = movimentacaoService;
+        _excelService = excelService;
+        _emailService = emailService;
     }
     
     [Route("/home/download")]
@@ -61,42 +66,30 @@ public class DownloadController : Controller
             TempData["Erro"] = "Seção encerrada. Faça login novamente";
             return RedirectToAction("Index", "Login");
         }
-        
-        List<MovimentacaoResponse> movimentacao = 
-            await _movimentacaoService.ListarMovimentacoes(new Guid(usuarioId));
-            
-        DataTable dataTable = new DataTable("Movimentacao");
-        dataTable.Columns.AddRange(new DataColumn[]
-        {
-            new DataColumn("Nome"),
-            new DataColumn("Valor"),
-            new DataColumn("Descrição"),
-            new DataColumn("Data da Movimentação", typeof(DateTime))
-        });
-        
-        MemoryStream ms = new MemoryStream();
 
-        try
+        Result<MemoryStream>? resultado = await _excelService.GerarArquivoExcel(new Guid(usuarioId));
+        
+        if (!resultado.Sucesso)
         {
-            foreach (var mov in movimentacao)
-            {
-                float? valor = mov.TipoMovto == "Entrada" ? mov.Valor : (mov.Valor * -1);
-                dataTable.Rows.Add(mov.Nome, valor, mov.Descricao, mov.DataMovto);
-            }
-
-            using XLWorkbook wb = new XLWorkbook();
-            wb.Worksheets.Add(dataTable);
-            wb.SaveAs(ms);
-        }
-        catch (Exception ex)
-        {
-            HttpContext.Session.Remove("Id");
-            TempData["Erro"] = ex.Message;
-            RedirectToAction("Index", "Login");
+            TempData["Erro"] = resultado.Erro;
+            return RedirectToAction("Index", "Login");
         }
         
-        ms.Position = 0;
-        
-        return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "movimentacao.xlsx");
+        MemoryStream? ms = resultado.Objeto;
+        return File(ms!, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "movimentacao.xlsx");
+    }
+
+    [Route("/home/download/enviarEmail")]
+    public async Task<IActionResult> EnviarEmail()
+    {
+        string? usuarioId = HttpContext.Session.GetString("Id");
+
+        if (string.IsNullOrEmpty(usuarioId))
+        {
+            TempData["Erro"] = "Seção encerrada. Faça login novamente";
+            return RedirectToAction("Index", "Login");
+        }
+
+        return null;
     }
 }

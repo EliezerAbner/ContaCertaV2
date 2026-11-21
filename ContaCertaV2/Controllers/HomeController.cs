@@ -15,12 +15,6 @@ public class HomeController : Controller
         return View();
     }
     
-    [Route("/home/enviarEmail")]
-    public IActionResult EnviarEmail()
-    {
-        return View();
-    }
-    
     [Route("/home/logout")]
     public IActionResult Sair()
     {
